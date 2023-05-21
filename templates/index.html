@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Verify Certificate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: rgb(2, 0, 36);
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(0, 134, 255, 1) 0%, rgba(122, 60, 191, 1) 59%);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            /* align-items: center; */
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding-left: 20px;
+            border: 1px solid #ccc;
+            height: max-content;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 5px 0.1px 8px #ccc;
+            padding-bottom: 50px;
+            padding-top: 25px;
+        }
+
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .input {
+            padding: 6px;
+            font-size: 21px;
+            border-width: 0px;
+            border-color: #CCCCCC;
+            background-color: #FFFFFF;
+            color: #000000;
+            border-style: solid;
+            border-radius: 2px;
+            box-shadow: 0px 0px 7px rgba(66, 66, 66, .41);
+            text-shadow: 0px 0px 0px rgba(66, 66, 66, .75);
+        }
+
+        .input:focus {
+            outline: none;
+        }
+
+        .input-label {
+            margin-left: 7px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+        }
+
+        .buttonClass {
+            margin-top: 20px;
+            padding: 8px;
+            width: 150px;
+            outline: none;
+            border: none;
+            background-color: rgba(122, 60, 191, 1);
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        img {
+            margin-left: 50px;
+        }
+
+        .alertred {
+            padding: 20px;
+            background-color: #f44336;
+            /* Red */
+            color: white;
+            margin-bottom: 15px;
+            margin-right: 20px;
+            border-radius: 10px;
+            opacity: 1;
+            transition: opacity 0.6s;
+        }
+
+        .alertgreen {
+            padding: 20px;
+            background-color: #226c0f;
+            /* Red */
+            color: white;
+            margin-bottom: 15px;
+            margin-right: 20px;
+            border-radius: 10px;
+            opacity: 1;
+            transition: opacity 0.6s;
+        }
+
+        /* The close button */
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="{{url_for('static', filename='logo.png')}}" height="150" />
+
+    <div class="container">
+        {% if template == 0 %}
+        <p></p>
+        {% else %}
+        {% if verification_status %}
+        <div class="alertgreen">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{id}} has been successfully verified with the {{name}} and was issued on the {{issued}}.
+        </div>
+        {% else %}
+        <div class="alertred">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{input_text}} is not verified.
+        </div>
+        {% endif %}
+        {% endif %}
+
+        <p class="title">Certificate Verification</p>
+        <hr style="width:95%;text-align:left;margin-left:0;">
+        <div class="input-container">
+            <p class="input-label">Certificate Id</p>
+            <form method="POST" action="/submit">
+                <input type="text" name="cid" placeholder="Enter Certificate Id" class="input">
+                <button type="submit" class="buttonClass">Verify</button>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
